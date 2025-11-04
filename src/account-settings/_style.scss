@@ -1,50 +1,425 @@
+/* ==================== CUSC – ACCOUNT SETTINGS (FINAL POLISHED) ==================== */
 .page__account-settings {
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
+  /* ------- Tokens ------- */
+  --cusc-blue: #0B5ED7;
+  --heading: #0B3D91;
+  --accent: #18b17d;
+  /* Gạch xanh section */
+  --line: #e6edf4;
+  --text: #1f2937;
+  --muted: #6b7280;
 
-  h6, .h6 {
-    margin-bottom: .25rem;
-  }
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
 
-  .btn-link {
-    line-height: 1.2;
-    border: none;
-    padding: 0;
-    display: inline-block;
-  }
-
-  .jump-nav-sm {
-    top: 1rem;
-  }
-
+  /* ================= Sidebar (JumpNav) ================= */
   .jump-nav {
+    background: #fff;
+    border: 1px solid #e7eef6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(2, 6, 23, .04);
+
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 8px;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
     li {
-      margin-bottom: .5rem;
+      margin: 4px 0;
+    }
 
-      a {
-        text-decoration: underline;
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none !important;
+      transition: background .15s ease, color .15s ease;
+
+      &:hover,
+      &.is-active {
+        background: #eef2ff;
+        color: var(--heading);
+      }
+
+      &::before {
+        font-family: "FontAwesome";
+        width: 18px;
+        text-align: center;
+        color: var(--heading);
+        font-size: .95rem;
+        content: "\f0c1";
+      }
+
+      &[href*="basic-information"]::before,
+      &[href*="account-information"]::before {
+        content: "\f007";
+      }
+
+      &[href*="profile-information"]::before {
+        content: "\f2c3";
+      }
+
+      &[href*="social"]::before {
+        content: "\f1e0";
+      }
+
+      &[href*="notifications"]::before {
+        content: "\f0f3";
+      }
+
+      &[href*="site-preferences"]::before {
+        content: "\f0ac";
+      }
+
+      &[href*="linked-accounts"]::before {
+        content: "\f0c1";
+      }
+
+      &[href*="delete-account"]::before {
+        content: "\f1f8";
       }
     }
   }
 
-  .custom-switch {
-    padding: 0;
-    max-width: 500px;
 
-    .custom-control-label {
-      left: 2.25rem;
-      line-height: 1.6rem;
+}
+/* ===== CUSC: mọi nút kiểu "Edit" (pill xanh) trong trang Account ===== */
+.page__account-settings {
+  /* Base cho mọi kiểu nút thường gặp */
+  .btn,
+  .btn-link,
+  .pgn__btn,
+  button,
+  a.btn,
+  a[role="button"] {
+    background: var(--cusc-blue) !important;
+    color: #fff !important;
+    border: none !important;
+    min-height: 32px !important;
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    border-radius: 9999px !important;  /* pill */
+    line-height: 1 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    transform: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  /* Hover/active: giữ nguyên */
+  .btn:hover, .btn:active,
+  .btn-link:hover, .btn-link:active,
+  .pgn__btn:hover, .pgn__btn:active,
+  button:hover, button:active,
+  a.btn:hover, a.btn:active,
+  a[role="button"]:hover, a[role="button"]:active {
+    background: var(--cusc-blue) !important;
+    color: #fff !important;
+    transform: none !important;
+  }
+
+  /* Disabled */
+  .btn:disabled, .btn[disabled],
+  .pgn__btn:disabled, .pgn__btn[disabled],
+  button:disabled, button[disabled],
+  a.btn[aria-disabled="true"], a[role="button"][aria-disabled="true"] {
+    opacity: .6 !important;
+    pointer-events: none !important;
+  }
+
+  /* Focus ring (a11y) */
+  .btn:focus-visible,
+  .btn-link:focus-visible,
+  .pgn__btn:focus-visible,
+  button:focus-visible,
+  a.btn:focus-visible,
+  a[role="button"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Đảm bảo các nút ở header field dồn phải */
+  .editable-field > *:first-child .btn,
+  .editable-field > *:first-child .btn-link,
+  .editable-field > *:first-child button {
+    margin-left: auto !important;
+  }
+
+  /* Nhóm action (Save/Cancel/…) dồn phải, gọn */
+  .form-actions, .pgn__form-actions, .field-actions {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    margin-top: 8px !important;
+  }
+
+  /* Nếu trước đó có rule .btn-danger đỏ — ép về xanh luôn để “tất cả như Edit” */
+  .btn-danger, .pgn__btn.btn-danger {
+    background: var(--cusc-blue) !important;
+    color: #fff !important;
+    border: none !important;
+  }
+}
+/* ===== CUSC PATCH — match UI như hình ===== */
+.page__account-settings {
+  /* tokens (nếu đã có thì bỏ qua) */
+  --cusc-blue:#0B5ED7;
+  --heading:#0B3D91;
+  --accent:#18b17d;
+  --line:#e6edf4;
+  --text:#1f2937;
+  --muted:#6b7280;
+
+  /* ==== Section card ==== */
+  .account-section[id]{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    margin-bottom:22px;
+    box-shadow:0 1px 6px rgba(15,23,42,.04);
+
+    > .section-heading{
+      font-size:16px; font-weight:800; color:var(--heading);
+      margin:0 0 12px; padding-bottom:6px;
+      border-bottom:2px solid var(--accent);
+    }
+
+    > p{ margin:2px 0 12px; color:var(--muted); }
+  }
+
+  /* ==== Field block mỗi dòng ==== */
+  .editable-field,
+  .editable-select-field,
+  .editable-checkbox-field,
+  .editable-radio-field,
+  .field, .field-item{
+    border:1px solid #e9eff5;
+    background:#fff;
+    border-radius:12px;
+    padding:14px 16px;
+    margin:14px 0 16px;
+  }
+
+  /* Header: label đậm; KHÔNG đẩy nút sang phải */
+  .editable-field{
+    display:flex; flex-wrap:wrap; gap:10px 16px;
+
+    > *:first-child{
+      width:100%;
+      display:flex !important; align-items:baseline !important;
+      gap:10px 12px !important; margin-bottom:6px !important;
+      .h6, label{ margin:0; font-weight:800; color:var(--heading); }
+      /* Gỡ mọi rule cũ kéo nút sang phải */
+      .btn, .btn-link, button{ margin-left:0 !important; }
+    }
+
+    /* phần thân + nút Edit nằm bên trái, dưới nội dung */
+    > *:not(:first-child){ width:100%; margin-top:6px; line-height:1.45; }
+  }
+
+  /* ==== Buttons: đồng bộ kiểu pill xanh (trừ danger) ==== */
+  .account-section .btn,
+  .account-section .btn-link,
+  .account-section button,
+  .account-section a.btn,
+  .editable-field .btn,
+  .editable-field .btn-link,
+  .editable-field button {
+    background:var(--cusc-blue) !important;
+    color:#fff !important;
+    border:none !important;
+    min-height:32px !important;
+    padding:6px 14px !important;
+    font-size:13px !important;
+    font-weight:700 !important;
+    border-radius:9999px !important; /* pill */
+    box-shadow:none !important;
+    transition:none !important;
+    transform:none !important;
+    display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  }
+  /* Hover giữ nguyên */
+  .account-section .btn:hover,
+  .account-section .btn-link:hover,
+  .account-section button:hover,
+  .editable-field .btn:hover,
+  .editable-field .btn-link:hover,
+  .editable-field button:hover{
+    background:var(--cusc-blue) !important; color:#fff !important; transform:none !important;
+  }
+
+  /* Vùng action (Save/Cancel/…) vẫn dồn phải gọn gàng khi edit */
+  .editable-field .form-actions,
+  .editable-field .pgn__form-actions,
+  .editable-field .field-actions{
+    display:flex !important; justify-content:flex-end !important;
+    align-items:center !important; gap:8px !important; flex-wrap:wrap !important;
+    margin-top:10px !important;
+    > *{ margin:0 !important; }
+  }
+
+  /* ==== Delete: đỏ pill như ảnh ==== */
+  #delete-account .btn.btn-danger,
+  .btn-danger{
+    background:#dc2626 !important; color:#fff !important; border:none !important;
+    border-radius:9999px !important; min-height:32px !important; padding:6px 14px !important;
+  }
+  .btn-danger:hover{ background:#dc2626 !important; color:#fff !important; }
+
+  /* ==== A11y ==== */
+  .btn:focus-visible, .btn-link:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+}
+/* ===== PATCH: nới khoảng cách dọc cho tất cả nút trong trang Account ===== */
+.page__account-settings {
+  /* 1) Nút đứng một mình hoặc trong field/card: thêm margin trên–dưới */
+  .account-section .btn,
+  .account-section .btn-link,
+  .account-section button,
+  .editable-field .btn,
+  .editable-field .btn-link,
+  .editable-field button,
+  .btn-danger {
+    margin-block: 10px !important;  
+      margin-top: -4px !important;
+    
+    
+  }
+
+  /* 2) Vùng hành động (Save/Cancel/Reset…) – nới gap & khoảng cách với nội dung trên */
+  .editable-field .form-actions,
+  .editable-field .pgn__form-actions,
+  .editable-field .field-actions {
+    gap: 12px 14px !important;       /* tăng khoảng cách giữa các nút */
+    margin-top: 14px !important;     /* cách phần nội dung phía trên */
+    padding-top: 2px !important;     /* tạo breathing room nhẹ */
+  }
+
+  /* 3) Khi nút nằm ngay dưới nội dung field → nới khoảng cách trước nút */
+  .editable-field > *:not(:first-child) {
+    margin-top: 12px !important;     /* từ 6–10 lên 12 cho thoáng hơn */
+  }
+
+  /* 4) Trường hợp nút Delete (đỏ) cũng hưởng khoảng cách dọc */
+  #delete-account .btn.btn-danger {
+    margin-block: 12px !important;
+  }
+}
+/* ==== CUSC FIX: mọi nút Edit ngang hàng label, không đụng action buttons ==== */
+.page__account-settings {
+  /* chừa chỗ bên phải để nút không đè chữ */
+  .editable-field {
+    position: relative;
+    padding-right: 120px !important; /* đủ cho nút pill + icon */
+    min-height: 48px;                /* đảm bảo có “trán” đặt nút */
+    display: block !important;       /* bỏ grid/flex cũ nếu có */
+  }
+
+  /* Nút Edit: kéo lên góc phải, thẳng hàng chiều dọc với label */
+  .editable-field > .btn,
+  .editable-field > .btn-link,
+  .editable-field > .pgn__btn,
+  .editable-field > button,
+  .editable-field > a.btn,
+  .editable-field > a.btn-link,
+  .editable-field * > .btn,
+  .editable-field * > .btn-link,
+  .editable-field * > .pgn__btn,
+  .editable-field * > button,
+  .editable-field * > a.btn,
+  .editable-field * > a.btn-link {
+    position: absolute !important;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);     /* canh giữa theo chiều dọc */
+    margin: 0 !important;
+    /* kiểu nút pill xanh (nếu bạn đã set trước thì vẫn giữ) */
+    min-height: 32px !important;
+    padding: 6px 14px !important;
+    border-radius: 9999px !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  /* ĐỪNG áp dụng absolute cho nhóm action khi đang edit */
+  .editable-field .form-actions .btn,
+  .editable-field .form-actions .btn-link,
+  .editable-field .form-actions .pgn__btn,
+  .editable-field .form-actions button,
+  .editable-field .form-actions a.btn,
+  .editable-field .pgn__form-actions .btn,
+  .editable-field .pgn__form-actions .btn-link,
+  .editable-field .pgn__form-actions .pgn__btn,
+  .editable-field .pgn__form-actions button,
+  .editable-field .pgn__form-actions a.btn,
+  .editable-field .field-actions .btn,
+  .editable-field .field-actions .btn-link,
+  .editable-field .field-actions .pgn__btn,
+  .editable-field .field-actions button,
+  .editable-field .field-actions a.btn {
+    position: static !important;
+    transform: none !important;
+    right: auto; top: auto;
+  }
+
+  /* Label/header gọn gàng, không bị đẩy nút sang phải nữa */
+  .editable-field > *:first-child {
+    display: flex; align-items: center;
+    gap: 10px 12px; margin: 0 0 6px 0 !important;
+  }
+
+  /* Mobile: để nút rơi xuống dưới cho đỡ chật */
+  @media (max-width: 576px) {
+    .editable-field {
+      padding-right: 16px !important;
+      min-height: unset;
+    }
+    .editable-field > .btn,
+    .editable-field > .btn-link,
+    .editable-field > .pgn__btn,
+    .editable-field > button,
+    .editable-field > a.btn,
+    .editable-field > a.btn-link,
+    .editable-field * > .btn,
+    .editable-field * > .btn-link,
+    .editable-field * > .pgn__btn,
+    .editable-field * > button,
+    .editable-field * > a.btn,
+    .editable-field * > a.btn-link {
+      position: static !important;
+      transform: none !important;
+      margin-top: 8px !important;
     }
   }
-  .grayed-out{
-    opacity: 0.6; /* Real browsers */
-    filter: alpha(opacity = 60); /* MSIE */
-  }
 }
-
-#tooltip-email .small {
-  display: block;
-  margin: 0 !important;
-}
+  
