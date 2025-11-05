@@ -2,34 +2,34 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 
 const messages = defineMessages({
   'account.settings.field.name.checkbox.certificate.select': {
-    id: 'account.settings.field.name.certificate.select',
-    defaultMessage: 'If checked, this name will appear on your certificates and public-facing records.',
-    description: 'Label for checkbox describing that the selected name will appear on the user‘s certificates.',
+    id: 'account.settings.field.name.checkbox.certificate.select',
+    defaultMessage: 'Nếu chọn, tên này sẽ hiển thị trên chứng chỉ và các bản ghi công khai.',
+    description: 'Nhãn checkbox: tên đã chọn sẽ xuất hiện trên chứng chỉ và các bản ghi công khai.',
   },
   'account.settings.field.name.modal.certificate.title': {
     id: 'account.settings.field.name.modal.certificate.title',
-    defaultMessage: 'Choose a preferred name for certificates and public-facing records',
-    description: 'Title instructing the user to choose a preferred name.',
+    defaultMessage: 'Chọn tên ưu tiên cho chứng chỉ và các bản ghi công khai',
+    description: 'Tiêu đề hướng dẫn người dùng chọn tên ưu tiên.',
   },
   'account.settings.field.name.modal.certificate.select': {
     id: 'account.settings.field.name.modal.certificate.select',
-    defaultMessage: 'Select a name',
-    description: 'Label instructing the user to select a name.',
+    defaultMessage: 'Chọn tên',
+    description: 'Nhãn hướng dẫn người dùng chọn một tên.',
   },
   'account.settings.field.name.modal.certificate.option.full': {
     id: 'account.settings.field.name.modal.certificate.option.full',
-    defaultMessage: 'Full Name',
-    description: 'Option representing the user’s full name.',
+    defaultMessage: 'Họ và tên',
+    description: 'Tùy chọn đại diện cho họ và tên đầy đủ của người dùng.',
   },
   'account.settings.field.name.modal.certificate.option.verified': {
     id: 'account.settings.field.name.modal.certificate.option.verified',
-    defaultMessage: 'Verified Name',
-    description: 'Option representing the user’s verified name.',
+    defaultMessage: 'Tên đã xác minh',
+    description: 'Tùy chọn đại diện cho tên đã được xác minh của người dùng.',
   },
   'account.settings.field.name.modal.certificate.button.choose': {
     id: 'account.settings.field.name.modal.certificate.button.choose',
-    defaultMessage: 'Choose name',
-    description: 'Button to confirm the user’s name choice.',
+    defaultMessage: 'Chọn tên',
+    description: 'Nút xác nhận lựa chọn tên của người dùng.',
   },
 });
 
